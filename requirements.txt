@@ -7,7 +7,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 joblib==0.14.1
 MarkupSafe==1.1.1
-mkl-fft==1.0.15
+https://anaconda.org/anaconda/mkl_fft/1.0.15/download/win-64/mkl_fft-1.0.15-py27h44c1dab_0.tar.bz2
 mkl-random==1.1.1
 mkl-service==2.3.0
 numpy==1.18.1
