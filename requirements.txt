@@ -3,6 +3,8 @@ Flask==1.1.2
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
+scikit-learn
+fuzzywuzzy
 pandas
 pyarrow==0.17.0
 gunicorn
