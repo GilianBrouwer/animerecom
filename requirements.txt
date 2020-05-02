@@ -4,7 +4,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 numpy==1.18.3 
-scikit-learn==0.21.3
+scikit-learn
 pyarrow==0.17.0
 waitress==1.4.3
 Werkzeug==1.0.1
