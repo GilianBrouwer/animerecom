@@ -8,7 +8,7 @@ from flask import Flask, render_template, request
 import pandas as pd
 from fuzzywuzzy import fuzz
 from sklearn.neighbors import NearestNeighbors
-
+from waitress import serve
 
 
 df2 = pd.read_parquet('data/matrix.parquet')
