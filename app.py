@@ -7,7 +7,6 @@ Created on Tue Mar 10 15:15:16 2020
 from flask import Flask, render_template
 import pandas as pd
 
-df2 = pd.read_parquet('data/matrix.parquet')
 anime=pd.read_csv('anime2.csv',  usecols= ['anime_id', 'title', 'title_english', 'genre'])
 
 app = Flask(__name__)
@@ -19,7 +18,6 @@ def my_form():
 @app.route('/',methods=['GET', 'POST'])
     
 def recommender():
-    
     
     recommer=anime.head()
         
