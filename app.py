@@ -17,11 +17,11 @@ model_knn=NearestNeighbors(metric='cosine', algorithm='brute')
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def my_form():
     return render_template('index.html')
 
-@app.route('/',methods=['POST'])
+@app.route('/',methods=['GET', 'POST'])
     
 def recommender():
     my_favorite = request.form['text']
@@ -73,5 +73,6 @@ def recommender():
     return render_template('index.html',  recani=recani, tables=[recommer.to_html(classes='data')], titles=recommer.columns.values)
 
 if __name__ == "__main__":
-    app.run()
+#    app.run()
+    serve(app, host='0.0.0.0')
 
