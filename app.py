@@ -4,12 +4,9 @@ Created on Tue Mar 10 15:15:16 2020
 
 @author: Gebruiker
 """
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 import pandas as pd
-from fuzzywuzzy import fuzz
 from sklearn.neighbors import NearestNeighbors
-from waitress import serve
-
 
 df2 = pd.read_parquet('data/matrix.parquet')
 anime=pd.read_csv('anime2.csv',  usecols= ['anime_id', 'title', 'title_english', 'genre'])
@@ -24,24 +21,12 @@ def my_form():
 @app.route('/',methods=['GET', 'POST'])
     
 def recommender():
-    my_favorite = request.form['text']
-
-    def fuzzy_ratio(mapper, fav_anime, verbose=True):
-        sugtitle=[]
-        indk=-1
-        for i in mapper.title:
-            ratio=fuzz.ratio(i, my_favorite)
-            indk= indk+1
-            if ratio > 60:
-                sugtitle.append((i,indk, ratio))
-        sugtitle = sorted(sugtitle, key=lambda x: x[2])[::-1]
-        return sugtitle[0][1]
     
-    def make_recommendation(model_knn, data, mapper, fav_anime, n_recommendations):
+    def make_recommendation(model_knn, data, mapper, n_recommendations):
         # fit
         model_knn.fit(data)
         # get input anime
-        idx = fuzzy_ratio(mapper, fav_anime, verbose=True)
+        idx = 1090
         distances, indices = model_knn.kneighbors(data.iloc[idx, :].values.reshape(1, -1), n_neighbors=n_recommendations+1)
         # print recommendations
         ind= indices.tolist()
@@ -66,13 +51,12 @@ def recommender():
     recani, recommer=make_recommendation(
         model_knn=model_knn,
         data=df2,
-        fav_anime=my_favorite,
         mapper=anime,
         n_recommendations=5)
     
     return render_template('index.html',  recani=recani, tables=[recommer.to_html(classes='data')], titles=recommer.columns.values)
 
 if __name__ == "__main__":
-#    app.run()
-    serve(app, host='0.0.0.0')
+    app.run()
+
 
