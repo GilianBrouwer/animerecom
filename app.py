@@ -8,10 +8,8 @@ from flask import Flask, render_template, request
 import pandas as pd
 from fuzzywuzzy import fuzz
 from sklearn.neighbors import NearestNeighbors
-from waitress import serve
 
-
-df2 = pd.read_parquet('data/matrix.parquet')
+df2 = pd.read_csv('matrix.csv')
 anime=pd.read_csv('anime2.csv',  usecols= ['anime_id', 'title', 'title_english', 'genre'])
 model_knn=NearestNeighbors(metric='cosine', algorithm='brute')
 
@@ -73,6 +71,6 @@ def recommender():
     return render_template('index.html',  recani=recani, tables=[recommer.to_html(classes='data')], titles=recommer.columns.values)
 
 if __name__ == "__main__":
-#    app.run()
-    serve(app, host='0.0.0.0')
+    app.run()
+
 
